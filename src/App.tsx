@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useState } from "react";
+import HelloText from "./components/HelloText";
+import { estadosBrasileiros } from "./data/data";
 function App() {
-  const [count, setCount] = useState(0)
+  const [helloText, setHelloText] = useState("Hello, World!");
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="min-h-screen content-center bg-gradient-to-t from-gray-800 to-black">
+        <div className="flex flex-col items-center font-mono text-green-500">
+          <div className="flex-auto">
+            <HelloText text={helloText} />
+          </div>
+
+          <div className="flex-auto">
+            <div className="w-full max-w-xs">
+              <label htmlFor="estado" className="block text-sm font-medium ">
+                Selecione um estado
+              </label>
+              <select
+                id="estado"
+                name="estado"
+                className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                onChange={(e) => setHelloText(e.target.value)}
+              >
+                {estadosBrasileiros.map((estado, index) => (
+                  <option key={index} value={estado.value}>
+                    {estado.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
